@@ -1,0 +1,54 @@
+
+<%- include('partials/Aheader') %>
+
+
+
+<div class="brand" >
+   <div class="container">
+       <div class="row">
+           <div class="col-md-12">
+               <div class="titlepage">
+                   <h2>Our Brand</h2>
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="brand-bg">
+       <div class="container">
+           <div class="row">
+               <% result.forEach(function(item) { %>                
+               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin">
+                   <div class="brand_box">
+                       <img src="images/<%= item.image %>.png" alt="img" />
+
+                       <% if(item.sale_price){ %>
+
+                       <h3>$<strong class="red"><%= item.sale_price %></strong></h3>
+                       <h3 style="text-decoration: line-through;" >$<strong class="red"><%= item.price %></strong></h3>
+                       <% }else{ %>
+
+                           <h3>$<strong class="red"><%= item.price %></strong></h3>
+                       <% } %>
+                       
+                       <span> <%= item.name %></span>
+                    
+                       <button value="Add To Cart" class="btn btn-primary" onclick="alert('You have to Login first !')" >Add To Cart</button>
+                     
+               </div>
+           
+           </div>
+           <% }) %>
+           
+             
+               <div class="col-md-12">
+                   <a class="read-more">See More</a>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+
+
+<%- include('partials/footer') %>
+

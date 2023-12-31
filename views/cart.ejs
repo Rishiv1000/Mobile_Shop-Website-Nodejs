@@ -1,0 +1,85 @@
+<%- include('partials/header') %>
+
+  <div class="jumbotron text-center">
+    <h1>Cart</h1>
+    <p>Resize this responsive page to see the effect!</p> 
+  </div>
+    
+  <div class="container">
+    <form ></form>
+    
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+ <% cart.forEach(function(items){ %>
+          <tbody>
+         
+            <tr>
+              <td><a class="text-body" href=""><img style="max-width: 100px; max-height: 50px;" src="images/<%= items.image %>" /></a></td>
+              <td><a class="text-body" href=""><%= items.name %></a></td>
+              <td>
+                <% if(items.sale_price){ %>
+                <small><span>$</span><%= items.sale_price %></small>
+                 <% }else{  %>
+                <small><span>$</span><%= items.price %></small>
+                <% } %>
+             </td>
+              <td>
+                <form method="post" action="/edit_product_quantity" >
+                <input type="hidden" name="id" value="<%= items.id %>">
+                 <input type="submit" name="decrease_product_quantity" value="-" class="edit-btn">
+                <input type="text" name="quantity" value="<%= items.quantity %>" readonly>
+                <input type="submit" name="increase_product_quantity " value="+" class="edit-btn">
+             </form>
+            </td>
+
+              <td>
+                <form method="post" action="/remove_product">
+                <input type="hidden" name="id" value="<%= items.id %>">
+                <input type="submit" name="remove_btn" class="remove_btn" value="remove">
+             </form>
+            </td>
+            </tr>
+           
+           <tr> <% if(items.sale_price){ %>
+              <span class="product-price">$<%= items.sale_price * items.quantity %></span>
+            <% }else{  %>
+              <span class="product-price">$<%= items.price * items.quantity %></span>
+            <% } %>
+          </tr>
+          
+          <% }) %>
+          </tbody>
+        </table>
+        <div class="cart-total">
+          <table>
+              <tr>
+                  <td> TOTAL  </td>
+                  <td>$  <%= total %> </td>
+              </tr>
+             
+          </table>
+      </div> 
+        
+  
+      <div class="checkout-container">
+  
+          <form action="/checkout" method="get">
+              <input type="submit" class="btn checkout-btn" value="checkout" name="">
+          </form>
+      </div>
+       
+      </div>
+     
+    </form>
+  </div>
+
+  <%- include('partials/footer') %>
